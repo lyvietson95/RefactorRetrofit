@@ -1,11 +1,19 @@
 package vn.ifactory.retrofit.data.remote;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import vn.ifactory.retrofit.model.TokenReponse;
+import vn.ifactory.retrofit.model.TokenRequest;
+import vn.ifactory.retrofit.model.Users;
 
 /**
  * Created by PC on 10/18/2018.
@@ -28,6 +36,7 @@ public class APIServiceProvider {
         loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(logLevel);
 
+
         // okHttpClient is library making call API (using base HttpUrlConnection to making call API)
         okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(readTimeout, TimeUnit.MILLISECONDS)
@@ -38,7 +47,7 @@ public class APIServiceProvider {
         // Retrofit is library communicate with Restful API:
         // BaseURL
         // Converter (use Gson to part Object to Json or Json to Object)
-        // RestClient to making call API (at here use OkhttpClient)
+        // RestClient to making call API (in this project using OkhttpClient)
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -56,5 +65,13 @@ public class APIServiceProvider {
             sServiceInstance=new APIServiceProvider(baseUrl,readTimeout,connectTimeout,logLevel);
         }
         return sServiceInstance;
+    }
+
+    public Call<TokenReponse> getToken(String userName, String password, String grantType){
+        return apiInterface.getToken(userName, password, grantType);
+    }
+
+    public Call<Users> getUserInfo(String token, String userName, String password) {
+        return apiInterface.getUserInfo(token, userName, password);
     }
 }

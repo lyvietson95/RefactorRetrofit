@@ -31,6 +31,7 @@ public class AppConfig extends Application {
     public static final String PRE_USERNAME = "USER_NAME";
     public static final String PRE_USER = "USER";
     public static final String PRE_SESSION_TOKEN = "SESSION_TOKEN";
+    public static final String PREFIX_TOKEN = "Bearer ";
     public static enum API_ENDPOINTS{
         localhost, remote
     }
@@ -66,31 +67,35 @@ public class AppConfig extends Application {
                 HttpLoggingInterceptor.Level.BODY);
     }
 
+    public static APIServiceProvider getApiServiceProvider() {
+        return apiServiceProvider;
+    }
+
     public Gson getGson() {
         return mGson;
     }
 
-    private static void saveUserName(String userName) {
+    public void saveUserName(String userName) {
         SharedPrefs.getInstance().put(PRE_USERNAME, userName);
     }
 
-    private static String getUserName() {
+    public String getUserName() {
         return SharedPrefs.getInstance().get(PRE_USERNAME, String.class);
     }
 
-    private static void saveFullUser(Users users) {
+    public void saveFullUser(Users users) {
         SharedPrefs.getInstance().put(PRE_USER, users);
     }
 
-    private static Users getFullUser() {
+    public Users getFullUser() {
         return SharedPrefs.getInstance().get(PRE_USER, Users.class);
     }
 
-    private static void saveSessionToken(String token) {
-        SharedPrefs.getInstance().put(PRE_SESSION_TOKEN, token);
+    public void saveSessionToken(String token) {
+        SharedPrefs.getInstance().put(PRE_SESSION_TOKEN, PREFIX_TOKEN + token);
     }
 
-    private static String getSessionToken() {
+    public String getSessionToken() {
         return SharedPrefs.getInstance().get(PRE_SESSION_TOKEN, String.class);
     }
 }

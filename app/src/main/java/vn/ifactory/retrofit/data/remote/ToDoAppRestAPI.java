@@ -5,18 +5,20 @@ package vn.ifactory.retrofit.data.remote;
  */
 
 public interface ToDoAppRestAPI {
-    String baseLocalHostUrl = "http://10.0.2.2:8080/dotolist/webapi/";
-    String baseRemoteUrl = "http://todolistmobileapp-env.ap-south-1.elasticbeanstalk.com/webapi/";
+    String baseLocalHostUrl = "http://192.168.0.107:80/api/";
+    String baseRemoteUrl = "http://192.168.0.107:80/api/";
 
-    String registerAuthor="authors/";
+    String registerAuthor="users/";
 
-    String login = registerAuthor+"login/";
+    String getToken = "token";
+
+    String getUserInfo = "users/{username}/{password}";
 
     String logout = registerAuthor+"signout/";
 
-    String addToDoItem = "todolists/";
+    String addToDoItem = "todo/";
 
-    String getToDoItem = addToDoItem;
+    String getToDoItem = "todoes/";
 
     String deleteToDo = addToDoItem;
 
