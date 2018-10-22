@@ -1,8 +1,10 @@
 package vn.ifactory.retrofit.view.activities;
 
+
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +21,10 @@ import vn.ifactory.retrofit.model.TokenReponse;
 import vn.ifactory.retrofit.model.TokenRequest;
 import vn.ifactory.retrofit.model.Users;
 import vn.ifactory.retrofit.utils.Util;
+import vn.ifactory.retrofit.view.dialogs.ICallbackFragment;
+import vn.ifactory.retrofit.view.dialogs.RegisterDialogFragment;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener, ICallbackFragment, RegisterDialogFragment.IRegisterSuccess{
     public static final String GRANT_TYPE = "password";
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -59,7 +63,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void handleRegister() {
-
+        DialogFragment dialogFragment = new RegisterDialogFragment();
+        ((RegisterDialogFragment)dialogFragment).setCallBackFragment(this);
+        ((RegisterDialogFragment)dialogFragment).setIRegisterSuccess(this);
+        dialogFragment.show(getSupportFragmentManager(),"register");
     }
 
     private void handleLogin() {
@@ -127,5 +134,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private void openHomeActivity() {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void showLoadingDialog(boolean isShow) {
+        if (isShow) {
+            showBusyDialog("Loading...");
+        }else {
+            dismissBusyDialog();
+        }
+
+    }
+
+    @Override
+    public void showToast(String msg) {
+        toastMessage(msg, Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onRegisterSuccess(Users users) {
+        Log.d(TAG, "Register User success");
+        edtUsername.setText(users.getUserName());
     }
 }

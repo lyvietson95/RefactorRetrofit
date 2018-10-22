@@ -33,4 +33,7 @@ public interface APIInterface {
     Call<Users> getUserInfo(@Header(value = "Authorization")String token,
                             @Path("username") String username,
                             @Path("password") String password);
+
+    @POST(ToDoAppRestAPI.registerUser)
+    Call<String> registerUser(@Body Users users);
 }

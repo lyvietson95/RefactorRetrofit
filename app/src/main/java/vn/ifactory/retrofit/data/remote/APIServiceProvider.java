@@ -74,4 +74,8 @@ public class APIServiceProvider {
     public Call<Users> getUserInfo(String token, String userName, String password) {
         return apiInterface.getUserInfo(token, userName, password);
     }
+
+    public Call<String> registerUser(Users users) {
+        return apiInterface.registerUser(users);
+    }
 }

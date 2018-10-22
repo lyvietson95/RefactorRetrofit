@@ -2,11 +2,13 @@ package vn.ifactory.retrofit.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by PC on 10/18/2018.
  */
 
-public class Users {
+public class Users implements Serializable{
     @SerializedName("userId")
     private int userId;
 
