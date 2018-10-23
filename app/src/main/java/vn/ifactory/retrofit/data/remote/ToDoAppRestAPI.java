@@ -18,9 +18,9 @@ public interface ToDoAppRestAPI {
 
     String addToDoItem = "todo/";
 
-    String getToDoItem = "todoes/";
+    String getToDoItem = "todoes/{userId}";
 
     String deleteToDo = addToDoItem;
 
-    String modifyToDoUrl = addToDoItem;
+    String modifyToDoItem = addToDoItem;
 }

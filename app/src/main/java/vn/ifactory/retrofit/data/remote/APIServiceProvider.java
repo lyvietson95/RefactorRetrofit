@@ -1,6 +1,7 @@
 package vn.ifactory.retrofit.data.remote;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
@@ -11,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import vn.ifactory.retrofit.model.ToDo;
 import vn.ifactory.retrofit.model.TokenReponse;
 import vn.ifactory.retrofit.model.TokenRequest;
 import vn.ifactory.retrofit.model.Users;
@@ -77,5 +79,21 @@ public class APIServiceProvider {
 
     public Call<String> registerUser(Users users) {
         return apiInterface.registerUser(users);
+    }
+
+    public Call<List<ToDo>> getTodoByUser(String token, int userId) {
+        return apiInterface.getTodoes(token, userId);
+    }
+
+    public Call<String> addTodoItem(String token, String todoName, String description, int userId) {
+        return apiInterface.addTodoItem(token, todoName, description, userId);
+    }
+
+    public Call<String> modifyTodoItem(String token, int todoId, String name, String description ) {
+        return apiInterface.modifyTodoItem(token, todoId, name, description);
+    }
+
+    public Call<String> deleteTodoItem(String token, int todoId) {
+        return apiInterface.deleteTodoItem(token, todoId);
     }
 }

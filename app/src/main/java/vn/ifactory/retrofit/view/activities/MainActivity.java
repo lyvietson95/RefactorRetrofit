@@ -20,6 +20,7 @@ import vn.ifactory.retrofit.R;
 import vn.ifactory.retrofit.model.TokenReponse;
 import vn.ifactory.retrofit.model.TokenRequest;
 import vn.ifactory.retrofit.model.Users;
+import vn.ifactory.retrofit.utils.IntentUtils;
 import vn.ifactory.retrofit.utils.Util;
 import vn.ifactory.retrofit.view.dialogs.ICallbackFragment;
 import vn.ifactory.retrofit.view.dialogs.RegisterDialogFragment;
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 dismissBusyDialog();
                 if (response.body() != null) {
                     AppConfig.getInstance().saveFullUser(response.body());
-                    openHomeActivity();
+                    openHomeActivity(response.body().getUserId());
                 }
             }
 
@@ -131,8 +132,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         });
     }
 
-    private void openHomeActivity() {
+    private void openHomeActivity(int userId) {
         Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra(IntentUtils.USER_ID, userId);
         startActivity(intent);
     }
 
